@@ -11,10 +11,12 @@ class AddTodoForm extends React.Component {
     }
 
     changeText = (event) => {
-        this.setState({text: event.target.value})
+        const inputNode = event.target
+        const inputValue = inputNode.value
+        this.setState({text: inputValue})
     }
 
-    handleAddClick = () => {
+    handleClick = () => {
         const text = this.state.text
         this.setState({text: ''})
         this.props.onAddTodoItem(text)
@@ -25,12 +27,13 @@ class AddTodoForm extends React.Component {
             <div>
                 <label>Agregar nuevo item</label>
                 <input
+                    name="Nombre"
                     type="text"
                     value={this.state.text}
                     onChange={this.changeText}
                 />
                 <button
-                    onClick={this.handleAddClick}
+                    onClick={this.handleClick}
                 >
                     Agregar
                 </button>
