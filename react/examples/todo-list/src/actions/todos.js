@@ -1,21 +1,33 @@
-export const ADD_TODO_ITEM = 'ADD_TODO_ITEM'
-export const REMOVE_TODO_ITEM = 'REMOVE_TODO_ITEM'
+import todoApi from '../api/todoApi'
 
-export const addTodoItem = (text) => {
-    const newTodoItem = {
-        id: Math.floor(Math.random() * 1000000000),
-        text: text
-    }
+export const SET_TODO_ITEMS = 'SET_TODO_ITEMS'
 
+export const setTodoItems = items => {
     return {
-        type: ADD_TODO_ITEM,
-        payload: newTodoItem
+        type: SET_TODO_ITEMS,
+        payload: items
     }
 }
 
-export const removeTodoItem = (id) => {
-    return {
-        type: REMOVE_TODO_ITEM,
-        payload: { id: id }
-    }
+export const getAllTodoItemsDispatcher = (dispatch) => {
+    // Ejecutar la llamada al servidor y actualizar los items
+    todoApi.getAll().then(
+        response => {
+            console.log('RESPONSE OBJECT:')
+            console.log(response)
+            return dispatch(setTodoItems(response.data.data))
+        }
+    )
+}
+
+export const removeTodoItemDispatcher = (dispatch, id) => {
+    todoApi.deleteItem(id).then(
+        response => dispatch(setTodoItems(response.data.data))
+    )
+}
+
+export const addTodoItemDispatcher = (dispatch, text) => {
+    todoApi.addTodoItem(text).then(
+        response => dispatch(setTodoItems(response.data.data))
+    )
 }

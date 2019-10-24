@@ -1,4 +1,6 @@
-import { ADD_TODO_ITEM, REMOVE_TODO_ITEM } from "../actions/todos"
+import { 
+    SET_TODO_ITEMS 
+} from "../actions/todos"
 
 const initialState = {
     list: [],
@@ -6,16 +8,10 @@ const initialState = {
 
 const todosReducer = (state = initialState, action) => {
     switch(action.type) {
-        case ADD_TODO_ITEM:
+        case SET_TODO_ITEMS:
             return {
                 ...state,
-                list: [...state.list, action.payload]
-            }
-        case REMOVE_TODO_ITEM:
-            return {
-                ...state,
-                list: state.list.filter((element) => 
-                    element.id !== action.payload.id)
+                list: action.payload
             }
         default:
             return state
