@@ -1,11 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import TodoList from '../components/TodoList'
-import AddTodoForm from '../components/AddTodoForm'
-import { 
-    removeTodoItemDispatcher, 
-    getAllTodoItemsDispatcher, 
-    addTodoItemDispatcher 
+import {  
+    getAllTodoItemsDispatcher
 } from '../actions/todos'
 
 class TodoListContainer extends React.Component {
@@ -17,13 +15,10 @@ class TodoListContainer extends React.Component {
     render() {
         return(
             <div>
-                <AddTodoForm
-                    onAddTodoItem={this.props.addTodo}
-                />
                 <TodoList
                     list={this.props.todoList}
-                    onRemoveTodoItem={this.props.removeTodo}
                 />
+                <Link to="/todos/new">Agregar item</Link>
             </div>
         )
     }
@@ -34,8 +29,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    addTodo: (text) => addTodoItemDispatcher(dispatch, text),
-    removeTodo: (id) => removeTodoItemDispatcher(dispatch, id),
     getAll: () => getAllTodoItemsDispatcher(dispatch),
 })
 

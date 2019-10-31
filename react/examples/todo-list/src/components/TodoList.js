@@ -1,25 +1,23 @@
 import React from 'react'
+import { isEmpty } from 'lodash'
+import { Link } from 'react-router-dom'
 
 class TodoList extends React.Component {
 
-    handleClickRemove = (id) => {
-        this.props.onRemoveTodoItem(id)
-    }
-
     render() {
+        const list = this.props.list
+        
+        if (isEmpty(list)) {
+            return <div>La lista de items esta vacia</div>
+        }
+
         return(
             <ul>
-                {this.props.list.map(
+                {list.map(
                     element => 
                     <li key={element.id}>
-                        {element.text}
-                        <button
-                            onClick={
-                                () => this.handleClickRemove(element.id)
-                            }
-                        >
-                            Eliminar
-                        </button>
+                        <span>{element.text}</span>
+                        <Link to={"/todos/" + element.id}>Ver</Link>
                     </li>
                 )}
             </ul>
