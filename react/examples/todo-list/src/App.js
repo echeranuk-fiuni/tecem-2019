@@ -5,6 +5,7 @@ import './App.css';
 import TodoListContainer from './containers/TodoListContainer'
 import HomeContainer from './containers/HomeContainer'
 import Error404Container from './containers/Error404Container';
+import GlobalErrorContainer from './containers/GlobalErrorContainer';
 import MenuContainer from './containers/MenuContainer';
 import NewTodoItemFormContainer from './containers/NewTodoItemFormContainer';
 import TodoItemContainer from './containers/TodoItemContainer';
@@ -15,6 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <GlobalErrorContainer />
         { window.localStorage.getItem('todo-list-auth-token') && <MenuContainer /> }
         <Switch>
           <AuthenticatedRoute path="/" exact component={HomeContainer} />

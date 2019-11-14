@@ -1,4 +1,5 @@
 import todoApi from '../api/todoApi'
+import { apiCallWithErrorHandlingDispatcher } from './errors'
 
 export const SET_TODO_ITEMS = 'SET_TODO_ITEMS'
 export const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM'
@@ -18,22 +19,28 @@ export const setCurrentItem = id => {
 }
 
 export const getAllTodoItemsDispatcher = (dispatch) => {
-    // Ejecutar la llamada al servidor y actualizar los items
-    todoApi.getAll().then(
-        response => {
-            return dispatch(setTodoItems(response.data.todos))
-        }
+
+    return apiCallWithErrorHandlingDispatcher(
+        dispatch,
+        todoApi.getAll(),
+        data => dispatch(setTodoItems(data.todos))
     )
 }
 
 export const removeTodoItemDispatcher = (dispatch, id) => {
-    todoApi.deleteItem(id).then(
-        response => dispatch(setTodoItems(response.data.todos))
+
+    return apiCallWithErrorHandlingDispatcher(
+        dispatch,
+        todoApi.deleteItem(id),
+        data => dispatch(setTodoItems(data.todos))
     )
 }
 
 export const addTodoItemDispatcher = (dispatch, text) => {
-    todoApi.addTodoItem(text).then(
-        response => dispatch(setTodoItems(response.data.todos))
+
+    return apiCallWithErrorHandlingDispatcher(
+        dispatch,
+        todoApi.addTodoItem(text),
+        data => dispatch(setTodoItems(data.todos))
     )
 }

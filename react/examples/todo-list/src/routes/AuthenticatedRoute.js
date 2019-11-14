@@ -6,9 +6,6 @@ class AuthenticatedRoute extends React.Component {
     render() {
         const { path, component, exact } = this.props
         const isAuthenticated = getCurrentToken() !== null
-        console.log("#############")
-        console.log(isAuthenticated)
-        console.log(getCurrentToken())
         return (
             isAuthenticated ?
             <Route path={path} component={component} exact={exact} /> :

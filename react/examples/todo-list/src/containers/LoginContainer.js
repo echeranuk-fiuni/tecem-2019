@@ -5,9 +5,8 @@ import LoginForm from '../components/LoginForm'
 
 class LoginContainer extends React.Component {
 
-    handleLogin = async (username, password) => {
-        await this.props.login(username, password)
-        window.location.href = '/'
+    handleLogin = (username, password) => {
+        this.props.login(username, password)
     }
 
     render() {
