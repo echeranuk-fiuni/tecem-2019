@@ -21,21 +21,19 @@ export const getAllTodoItemsDispatcher = (dispatch) => {
     // Ejecutar la llamada al servidor y actualizar los items
     todoApi.getAll().then(
         response => {
-            console.log('RESPONSE OBJECT:')
-            console.log(response)
-            return dispatch(setTodoItems(response.data.data))
+            return dispatch(setTodoItems(response.data.todos))
         }
     )
 }
 
 export const removeTodoItemDispatcher = (dispatch, id) => {
     todoApi.deleteItem(id).then(
-        response => dispatch(setTodoItems(response.data.data))
+        response => dispatch(setTodoItems(response.data.todos))
     )
 }
 
 export const addTodoItemDispatcher = (dispatch, text) => {
     todoApi.addTodoItem(text).then(
-        response => dispatch(setTodoItems(response.data.data))
+        response => dispatch(setTodoItems(response.data.todos))
     )
 }
